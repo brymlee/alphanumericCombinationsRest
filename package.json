@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "deploy": "gcloud functions deploy alphanumericCombinationsRest --runtime nodejs8 --trigger-http"
   },
   "repository": {
     "type": "git",
