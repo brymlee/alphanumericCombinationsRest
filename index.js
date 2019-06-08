@@ -1,8 +1,13 @@
 exports.alphanumericCombinationsRest = (request, response) => {
+	//const combinations = combinations(2, 10)
 	response
 		.status(200)
-		.append('Content-Type', 'text/plain')
-		.send("hello world")
+		.append('Content-Type', 'text/csv')
+		.append('Content-Disposition', 'attachment')
+		.append('filename', '"combinations.csv"')
+		.send("Base,Digits,Results\n" + 
+		      request.query.base + "," + request.query.digits + "," + "FF\n" + 
+	    	      ",,GG\n")
 }
 const alphaMap = [
 	{ id: 0, alpha: 'A' },
