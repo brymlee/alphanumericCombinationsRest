@@ -15,6 +15,7 @@ test('when counting till and target is AA and base is 16 then should have the ap
 })
 test('when counting and target is \'0\' and base is 10 then should return 1', () => expect(counter('0', 10)).toBe('1'))
 test('when finding combinations of 2 digits and base 10 then should have appropriate numbers', () => { 
+	combinations(3, 16)
 	expect(combinations(2, 10)).toHaveLength(45)
 })
 

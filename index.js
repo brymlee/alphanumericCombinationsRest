@@ -1,13 +1,16 @@
 exports.alphanumericCombinationsRest = (request, response) => {
-	//const combinations = combinations(2, 10)
+	const digits = parseInt(request.query.digits)
+	const base = parseInt(request.query.base)
+	const combinations = exports.combinations(digits, base)
+		.reduce((accumulator, currentValue) => accumulator + '\n' + currentValue + ',')
 	response
 		.status(200)
 		.append('Content-Type', 'text/csv')
 		.append('Content-Disposition', 'attachment')
 		.append('filename', '"combinations.csv"')
-		.send("Base,Digits,Results\n" + 
-		      request.query.base + "," + request.query.digits + "," + "FF\n" + 
-	    	      ",,GG\n")
+		.send("Base,Digits\n" + 
+		      base + "," + digits + "\n" + 
+		      'Results\n' + combinations)
 }
 const alphaMap = [
 	{ id: 0, alpha: 'A' },
@@ -148,7 +151,7 @@ exports.counter = (target, base) => {
 }
 
 exports.countTill = (end, base) => {
-	const countTill = (index, end, base, numbers) => {
+	/*const countTill = (index, end, base, numbers) => {
 		const trueIndex = index != undefined ? index : 0 
 		if(trueIndex === end 
 		|| trueIndex.length > end.length){
@@ -158,8 +161,21 @@ exports.countTill = (end, base) => {
 			const newNumbers = numbers.concat([newNumber])
 			return countTill(newNumber, end, base, newNumbers)
 		}
+	}*/
+	var number;
+	var index = 0;
+	var numbers = [];
+	var done = false;
+	while(!done){
+		if(index === end || index.length > end.length){
+			done = true;
+		}else{
+			number = exports.counter(index, base);
+			numbers = numbers.concat([number]);
+			//console.log(numbers)
+		}
 	}
-	return countTill(undefined, end, base, [])
+	return numbers;
 }
 
 exports.combinations = (hand, base) => {
@@ -233,5 +249,6 @@ exports.combinations = (hand, base) => {
 				return newNumber
 			}
 		})
+
 	return removeDuplicates(unsortedNumbers, sortedNumbers)
 }
